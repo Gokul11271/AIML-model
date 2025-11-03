@@ -47,7 +47,8 @@ def live_agent():
         input_data = np.zeros((1, num_features))
         input_data[0, 0] = speed  
 
-        scaled = scaler.transform(input_data)
+        scaled = scaler.transform(pd.DataFrame(input_data, columns=scaler.feature_names_in_))
+
         pred = model.predict(scaled)[0]
         prob = np.max(model.predict_proba(scaled))
         action = "BUY" if pred == 1 else "SELL"
